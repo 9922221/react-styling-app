@@ -1,0 +1,29 @@
+.error-form {
+    background-color: white;
+    width: 30rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+}
+
+.error-form label{
+    height: 3rem;
+    color: aliceblue;
+    font-weight: bold;
+    display: block;
+    background-color: blue;
+    border-radius: 10px 10px 0 0;
+    padding: 1rem 2rem 0;
+}
+
+.error-form p {
+    padding: 2rem 0;
+}
+
+.form-control {
+    margin: 0.5rem 0;
+    padding: 0 2rem 2rem;
+}

@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
+import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
+import './App.css';
+import ModalScreen
+  from "./components/UI/ModalScreen/ModalScreen";
+
+const App = () => {
+  const [users, setUsers] = useState([
+    { name: 'Tim', age: 18, id: 'g1' },
+    { name: 'Tom', age: 19,  id: 'g2' }
+  ]);
+  const [error, setError] = useState ({})
+
+  const addUserHandler = ({ name: enteredName, age: enteredAge }) => {
+    setUsers(prevUsers => {
+      const updatedUsers = [...prevUsers];
+      updatedUsers.unshift({ name: enteredName, age: enteredAge, id: Math.random().toString() });
+      return updatedUsers;
+    });
+  };
+
+  const deleteItemHandler = goalId => {
+    setUsers(prevUsers => {
+      const updatedUsers = prevUsers.filter(goal => goal.id !== goalId);
+      return updatedUsers;
+    });
+  };
+
+  const closeModalHandler = () => {
+    setError({})
+  }
+
+  const errorHandler = (error) => {
+    setError(error)
+  }
+
+  let content = (
+    <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
+  );
+
+  if (users.length > 0) {
+    content = (
+      <CourseGoalList items={users} onDeleteItem={deleteItemHandler} />
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <section id="goal-form">
+        <CourseInput onAddUser={addUserHandler} onError={errorHandler}/>
+      </section>
+      <section id="goals">
+        {content}
+      </section>
+      { error.type && (
+        <ModalScreen error={error} onClose={closeModalHandler}/>
+      )}
     </div>
   );
-}
+};
 
 export default App;
