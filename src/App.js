@@ -37,12 +37,6 @@ const App = () => {
     setError(error)
   }
 
-  // const ModalOverlay = (props) => {
-  //   return  (
-  //     <ModalScreen error={error} onClose={closeModalHandler}/>
-  //   )
-  // }
-
   let content = (
     <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
   );
@@ -65,6 +59,6 @@ const App = () => {
       }
     </>
   );
-};
+}
 
 export default App;
