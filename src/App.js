@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDom from 'react-dom'
 
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
@@ -36,6 +37,12 @@ const App = () => {
     setError(error)
   }
 
+  // const ModalOverlay = (props) => {
+  //   return  (
+  //     <ModalScreen error={error} onClose={closeModalHandler}/>
+  //   )
+  // }
+
   let content = (
     <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
   );
@@ -47,17 +54,16 @@ const App = () => {
   }
 
   return (
-    <div>
+    <>
       <section id="goal-form">
         <CourseInput onAddUser={addUserHandler} onError={errorHandler}/>
       </section>
       <section id="goals">
         {content}
       </section>
-      { error.type && (
-        <ModalScreen error={error} onClose={closeModalHandler}/>
-      )}
-    </div>
+      { error.type && ReactDom.createPortal(<ModalScreen error={error} onClose={closeModalHandler}/>, document.getElementById('overlay-root'))
+      }
+    </>
   );
 };
 
